@@ -42,7 +42,6 @@ dependencies {
 	implementation "org.springframework.cloud:spring-cloud-starter-gateway:${springGatewayVersion}"
 	implementation "org.springframework.cloud:spring-cloud-starter-netflix-hystrix:${springGatewayVersion}"
 	testImplementation ("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
-
 }
 
 task orderApi(type: GenerateTask) {

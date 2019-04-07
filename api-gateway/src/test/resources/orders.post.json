@@ -1,0 +1,18 @@
+{
+  "addresses": [
+  ],
+  "total_price": 7500,
+  "currency": "EUR",
+  "products": [
+    {
+      "product_id": "X5101",
+      "promotion_id": "default"
+    }
+  ],
+  "order_items": [
+    {
+      "line": "service extra",
+      "price": 50
+    }
+  ]
+}

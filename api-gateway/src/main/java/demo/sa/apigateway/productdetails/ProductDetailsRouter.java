@@ -19,15 +19,19 @@ public class ProductDetailsRouter {
 
 
     @Bean
-    public RouteLocator orderProxyRouting(RouteLocatorBuilder builder) {
+    public RouteLocator productProxyRoute(RouteLocatorBuilder builder) {
         return builder.routes()
+                .route(r -> r.path("/products/**")
+                        .and()
+                        .method("PUT")
+                        .uri(serviceUri))
                 .route(r -> r.path("/products/**")
                         .and()
                         .method("POST")
                         .uri(serviceUri))
                 .route(r -> r.path("/products/**")
                         .and()
-                        .method("PUT")
+                        .method("GET")
                         .uri(serviceUri))
                 .route(r -> r.path("/products")
                         .and()
@@ -37,8 +41,9 @@ public class ProductDetailsRouter {
     }
 
     @Bean
-    public RouterFunction<ServerResponse> orderRoutes(ProductDetailsHandlers productDetailsHandlers) {
-        return RouterFunctions.route(GET("/products/{productId}"), productDetailsHandlers::getProductDetails)
+    public RouterFunction<ServerResponse> productsRoutes(ProductDetailsHandlers productDetailsHandlers) {
+        return RouterFunctions
+                .route(GET("/products/{productId}"), productDetailsHandlers::getProductDetails)
                 .andRoute(POST("/products"), productDetailsHandlers::postNewProduct)
                 .andRoute(PUT("/products"), productDetailsHandlers::updateProduct)
                 .andRoute(GET("/products"), productDetailsHandlers::getProducts);

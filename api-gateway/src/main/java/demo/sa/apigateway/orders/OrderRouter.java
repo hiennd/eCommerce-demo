@@ -9,8 +9,7 @@ import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
-import static org.springframework.web.reactive.function.server.RequestPredicates.GET;
-import static org.springframework.web.reactive.function.server.RequestPredicates.POST;
+import static org.springframework.web.reactive.function.server.RequestPredicates.*;
 
 @Configuration
 public class OrderRouter {
@@ -22,15 +21,19 @@ public class OrderRouter {
     @Bean
     public RouteLocator orderProxyRouting(RouteLocatorBuilder builder) {
         return builder.routes()
-                .route(r -> r.path("/orders/**")
+                .route(r -> r.path("/orders")
                         .and()
                         .method("POST")
+                        .uri(orderServiceUri))
+                .route(r -> r.path("/orders")
+                        .and()
+                        .method("GET")
                         .uri(orderServiceUri))
                 .route(r -> r.path("/orders/**")
                         .and()
                         .method("PUT")
                         .uri(orderServiceUri))
-                .route(r -> r.path("/orders")
+                .route(r -> r.path("/orders/**")
                         .and()
                         .method("GET")
                         .uri(orderServiceUri))
@@ -41,7 +44,7 @@ public class OrderRouter {
     public RouterFunction<ServerResponse> orderRoutes(OrderHandlers orderHandlers) {
         return RouterFunctions.route(GET("/orders/{orderId}"), orderHandlers::getOrderDetails)
                 .andRoute(POST("/orders"), orderHandlers::postNewOrder)
-                .andRoute(POST("/orders"), orderHandlers::updateAnOrder)
+                .andRoute(PUT("/orders"), orderHandlers::updateAnOrder)
                 .andRoute(GET("/orders"), orderHandlers::getOrders);
     }
 }
