@@ -1,0 +1,6 @@
+rootProject.name = 'sa-parent'
+include 'customer-service'
+include 'product-service'
+include 'price-service'
+include 'order-service'
+include 'api-gateway'

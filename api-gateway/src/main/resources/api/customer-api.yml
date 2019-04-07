@@ -1,0 +1,208 @@
+openapi: 3.0.0
+info:
+  title: Customer Serivce
+  description: Customer Service.
+  contact:
+    name: Customer Serivce
+  version: 0.0.1
+servers:
+  - url: /
+paths:
+  /v1/customers:
+    get:
+      tags:
+        - Customer
+      summary: Get list of customers.
+      operationId: getCustomers
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/Customer'
+        404:
+          description: No Customers found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ThrowableProblem'
+    post:
+      tags:
+        - Customer
+      summary: create a new Customer.
+      operationId: createCustomer
+      requestBody:
+        description: CustomerDTO
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/Customer'
+        required: true
+      responses:
+        201:
+          description: Customer created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        400:
+          description: Invalid input.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ThrowableProblem'
+  /v1/customers/{customer-id}:
+    get:
+      tags:
+        - Customer
+      summary: get a spectial Customer.
+      operationId: getCustomer
+      parameters:
+        - name: customer-id
+          in: path
+          description: The unique Id of a customer.
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Customer found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        404:
+          description: Customer not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ThrowableProblem'
+    put:
+      tags:
+        - Customer
+      summary: update a spectial Customer.
+      operationId: updateCustomer
+      parameters:
+        - name: customer-id
+          in: path
+          description: The unique Id of a customer.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: CustomerDTO
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/Customer'
+        required: true
+      responses:
+        200:
+          description: Customer updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        404:
+          description: Customer not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ThrowableProblem'
+    delete:
+      tags:
+        - Customer
+      summary: update a special Customer.
+      operationId: deleteCustomer
+      parameters:
+        - name: customer-id
+          in: path
+          description: The unique Id of a customer.
+          required: true
+          schema:
+            type: string
+      responses:
+        204:
+          description: Customer deleted.
+        404:
+          description: Customer not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ThrowableProblem'
+components:
+  schemas:
+    Address:
+      type: object
+      properties:
+        address_id:
+          type: string
+        owner_id:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        street:
+          type: string
+        postal_code:
+          type: string
+        country_code:
+          type: string
+    Customer:
+      type: object
+      properties:
+        salutation:
+          type: string
+          enum:
+            - Mr.
+            - Mrs.
+            - Company
+        first_name:
+          type: string
+        last_name:
+          type: string
+        addresses:
+          type: array
+          items:
+            $ref: '#/components/schemas/Address'
+        phone:
+          type: array
+          items:
+            $ref: '#/components/schemas/Phone'
+    Phone:
+      type: object
+      properties:
+        phone_id:
+          type: string
+        owner_id:
+          type: string
+        phone_number:
+          type: string
+        type:
+          type: string
+          enum:
+            - mobil
+            - telephon
+    ThrowableProblem:
+      type: object
+      description: ThrowableProblem
+  parameters:
+    CustomerId:
+      name: customer-id
+      in: path
+      description: The unique Id on an Customer.
+      required: true
+      schema:
+        type: string
+  requestBodies:
+    Customer:
+      description: Information needed for a customer.
+      content:
+        '*/*':
+          schema:
+            $ref: '#/components/schemas/Customer'
+      required: true

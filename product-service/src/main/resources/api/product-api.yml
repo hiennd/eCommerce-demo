@@ -1,0 +1,202 @@
+openapi: 3.0.0
+info:
+  title: Product Serivce
+  description: Product Service.
+  contact:
+    name: Product Serivce
+  version: 0.0.1
+servers:
+  - url: /
+paths:
+  /v1/products:
+    get:
+      tags:
+        - Product
+      summary: Get list of products.
+      operationId: getProducts
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/Product'
+        404:
+          description: No Products found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ThrowableProblem'
+    post:
+      tags:
+        - Product
+      summary: create a new Product.
+      operationId: createProduct
+      requestBody:
+        description: ProductDTO
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/Product'
+        required: true
+      responses:
+        201:
+          description: Product created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        400:
+          description: Invalid input.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ThrowableProblem'
+  /v1/products/{product_id}:
+    get:
+      tags:
+        - Product
+      summary: get a spectial Product.
+      operationId: getProduct
+      parameters:
+        - name: product_id
+          in: path
+          description: The unique Id of a product.
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Product found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        404:
+          description: Product not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ThrowableProblem'
+    put:
+      tags:
+        - Product
+      summary: update a spectial Product.
+      operationId: updateProduct
+      parameters:
+        - name: product_id
+          in: path
+          description: The unique Id of a product.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: ProductDTO
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/Product'
+        required: true
+      responses:
+        200:
+          description: Product updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        404:
+          description: Product not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ThrowableProblem'
+    delete:
+      tags:
+        - Product
+      summary: update a special Product.
+      operationId: deleteProduct
+      parameters:
+        - name: product_id
+          in: path
+          description: The unique Id of a product.
+          required: true
+          schema:
+            type: string
+      responses:
+        204:
+          description: Product deleted.
+        404:
+          description: Product not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ThrowableProblem'
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        product_id:
+          type: string
+        name:
+          type: string
+        short_description:
+          type: string
+        long_description:
+          type: string
+        price:
+          type: number
+          format: float
+        stock:
+          type: number
+          format: int32
+        assets:
+          type: array
+          items:
+            $ref: '#/components/schemas/Asset'
+        promotions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Promotion'
+    Asset:
+      type: object
+      properties:
+        asset_id:
+          type: string
+        alt:
+          type: string
+        type:
+          type: string
+          enum:
+            - image
+            - video
+        url:
+          type: string
+    Promotion:
+      type: object
+      properties:
+        promotion_id:
+          type: string
+        description:
+          type: string
+    ThrowableProblem:
+      type: object
+      description: ThrowableProblem
+  parameters:
+    ProductId:
+      name: product_id
+      in: path
+      description: The unique Id on an Product.
+      required: true
+      schema:
+        type: string
+  requestBodies:
+    Product:
+      description: Information needed for a product.
+      content:
+        '*/*':
+          schema:
+            $ref: '#/components/schemas/Product'
+      required: true

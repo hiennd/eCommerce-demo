@@ -1,0 +1,11 @@
+{
+  "apiPackage" : "demo.sa.order",
+  "modelPackage" : "demo.sa.order.model.dto",
+  "modelNameSuffix": "Dto",
+  "useBeanValidation": true,
+  "useTags" : true,
+  "implicitHeaders" : true,
+  "interfaceOnly" : true,
+  "java8" : true,
+  "delegatePattern" : true
+}

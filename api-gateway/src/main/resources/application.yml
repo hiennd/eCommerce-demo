@@ -1,0 +1,14 @@
+server:
+  port: 8080
+orders:
+  services_url: http://localhost:8084/v1
+  author_header_value: "Basic dGVzdDp0ZXN0MTIz"
+price:
+  services_url: http://localhost:8083/v1
+customer:
+  services_url: http://localhost:8081/v1
+product:
+  services_url: http://localhost:8082/v1
+spring:
+  main:
+    allow-bean-definition-overriding: true

@@ -1,0 +1,10 @@
+{
+  "apiPackage" : "demo.sa.customer",
+  "modelPackage" : "demo.sa.customer.model.dto",
+  "useBeanValidation": true,
+  "useTags" : true,
+  "implicitHeaders" : true,
+  "interfaceOnly" : true,
+  "java8" : true,
+  "delegatePattern" : true
+}

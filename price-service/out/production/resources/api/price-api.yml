@@ -1,0 +1,119 @@
+openapi: 3.0.0
+info:
+  title: Price Serivce
+  description: Price Service.
+  contact:
+    name: Price Serivce
+  version: 0.0.1
+servers:
+  - url: /
+paths:
+  /v1/prices:
+    post:
+      tags:
+        - Price
+      summary: post a new Price.
+      operationId: createPrice
+      requestBody:
+        description: PriceDTO
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/Price'
+        required: true
+      responses:
+        201:
+          description: Price created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Price'
+        400:
+          description: Invalid input.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ThrowableProblem'
+    get:
+      tags:
+        - Price
+      summary: get a spectial Price.
+      operationId: getPrice
+      parameters:
+        - name: product_id
+          in: query
+          description: The unique Id of a price.
+          required: true
+          schema:
+            type: string
+        - name: promotion_id
+          in: query
+          description: The unique Id of a price.
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Price found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Price'
+        404:
+          description: Price not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ThrowableProblem'
+    put:
+      tags:
+        - Price
+      summary: update a spectial Price.
+      operationId: updatePrice
+      parameters:
+        - name: product_id
+          in: query
+          description: The unique Id of a price.
+          required: true
+          schema:
+            type: string
+        - name: promotion_id
+          in: query
+          description: The unique Id of a price.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: PriceDTO
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/Price'
+        required: true
+      responses:
+        200:
+          description: Price updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Price'
+        404:
+          description: Price not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ThrowableProblem'
+components:
+  schemas:
+    Price:
+      type: object
+      properties:
+        price_id:
+          type: string
+        product-id:
+          type: string
+        promotion-id:
+          type: string
+    ThrowableProblem:
+      type: object
+      description: ThrowableProblem

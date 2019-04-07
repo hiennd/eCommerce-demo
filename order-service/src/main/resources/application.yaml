@@ -1,0 +1,12 @@
+server:
+  port: 8084
+spring:
+  data:
+    mongodb:
+      port: 27018
+      database: sa-demo
+  security:
+    user:
+      name: "test"
+      password: "{noop}test123"
+      roles: "TEST"
