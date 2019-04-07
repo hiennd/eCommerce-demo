@@ -16,9 +16,6 @@ public class AssetEntity {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long databaseId;
-
-    @Column(nullable = false, updatable = false, unique = true)
     private String assetId;
 
     @Column

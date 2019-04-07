@@ -1,13 +1,11 @@
 package demo.sa.apigateway;
 
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import demo.sa.order.model.dto.OrderDto;
-import org.apache.commons.io.IOUtils;
+import demo.sa.product.model.dto.Product;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
@@ -17,9 +15,10 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.Duration;
+import java.util.UUID;
 
 
-public class OrdersIT extends ApiGatewayApplicationIntegrationTests {
+public class ProductDetailsIT extends ApiGatewayApplicationIntegrationTests {
 
     private WebTestClient webClient;
 
@@ -38,25 +37,26 @@ public class OrdersIT extends ApiGatewayApplicationIntegrationTests {
     }
 
     @Test
-    public void orders_push() throws IOException, URISyntaxException {
+    public void products_push() throws IOException, URISyntaxException {
         URI uri = getClass().getClassLoader()
-                .getResource("orders.post.json").toURI();
+                .getResource("products.post.json").toURI();
 
-        OrderDto orderDto = new ObjectMapper()
+        Product product = new ObjectMapper()
                 .readValue(uri.toURL(),
-                        OrderDto.class);
+                        Product.class);
+        product.setProductId(UUID.randomUUID().toString());
 
         webClient.post()
-                .uri("/orders")
+                .uri("/products")
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(BodyInserters.fromObject(orderDto))
+                .body(BodyInserters.fromObject(product))
                 .exchange()
                 .expectStatus().isOk();
     }
 
     @Test
-    public void orders_get() {
-        webClient.get().uri("/orders").exchange().expectStatus().isOk();
+    public void products_get() {
+        webClient.get().uri("/products").exchange().expectStatus().isOk();
     }
-
+    
 }

@@ -43,9 +43,9 @@ public class ProductDetailsRouter {
     @Bean
     public RouterFunction<ServerResponse> productsRoutes(ProductDetailsHandlers productDetailsHandlers) {
         return RouterFunctions
-                .route(GET("/products/{productId}"), productDetailsHandlers::getProductDetails)
-                .andRoute(POST("/products"), productDetailsHandlers::postNewProduct)
-                .andRoute(PUT("/products"), productDetailsHandlers::updateProduct)
+                .route(POST("/products"), productDetailsHandlers::postNewProduct)
+                .andRoute(GET("/products/{productId}"), productDetailsHandlers::getProductDetails)
+                .andRoute(PUT("/products/{productId}"), productDetailsHandlers::updateProduct)
                 .andRoute(GET("/products"), productDetailsHandlers::getProducts);
     }
 }

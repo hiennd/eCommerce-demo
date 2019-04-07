@@ -1,0 +1,20 @@
+{
+  "product_id": "sdfsd",
+  "name": "rewrwe",
+  "short_description": "X5",
+  "long_description": "X5",
+  "price": 7500,
+  "stock": 1000,
+  "assets": [
+    {
+      "alt": "Test Image",
+      "type": "image",
+      "url": "http://localhost"
+    }
+  ],
+  "promotions": [
+    {
+      "description": "default"
+    }
+  ]
+}

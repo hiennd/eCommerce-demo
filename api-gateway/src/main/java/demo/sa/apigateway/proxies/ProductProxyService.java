@@ -61,10 +61,10 @@ public class ProductProxyService {
                 .bodyToFlux(Product.class);
     }
 
-    public Mono<Product> updateProduct(Product product) {
+    public Mono<Product> updateProduct(Product product, String productId) {
         Mono<Product> productMono = client
                 .put()
-                .uri(productServiceUri + "/products")
+                .uri(productServiceUri + "/products/" + productId)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromObject(product))
                 .retrieve()

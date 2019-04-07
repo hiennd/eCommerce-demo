@@ -1,10 +1,8 @@
 package demo.sa.apigateway.productdetails;
 
-import demo.sa.apigateway.exception.PriceNotFoundException;
 import demo.sa.apigateway.exception.ProductNotFoundException;
 import demo.sa.apigateway.proxies.PriceProxyService;
 import demo.sa.apigateway.proxies.ProductProxyService;
-import demo.sa.order.model.dto.OrderDto;
 import demo.sa.product.model.dto.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -62,11 +60,12 @@ public class ProductDetailsHandlers {
 
     public Mono<ServerResponse> updateProduct(ServerRequest serverRequest) {
         Mono<Product> product = serverRequest.bodyToMono(Product.class);
+        String productId = serverRequest.pathVariable("productId");
         return product
-                .flatMap(productService::updateProduct)
-                .flatMap(od -> ServerResponse.ok()
+                .flatMap(prd -> productService.updateProduct(prd, productId))
+                .flatMap(prd -> ServerResponse.ok()
                         .contentType(MediaType.APPLICATION_JSON)
-                        .body(fromObject(od)))
+                        .body(fromObject(prd)))
                 .onErrorResume(HttpStatusCodeException.class, e -> ServerResponse.badRequest().build());
     }
 }
