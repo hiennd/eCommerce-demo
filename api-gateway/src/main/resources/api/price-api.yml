@@ -6,7 +6,7 @@ info:
     name: Price Serivce
   version: 0.0.1
 servers:
-  - url: /
+  - url: http://localhost
 paths:
   /v1/prices:
     post:
