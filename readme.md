@@ -17,7 +17,7 @@ A concert of an eCommerce system based on Microservices Architecuture with API G
  
 ```chmod +x build.sh```
  
-### Run build script`
+### Run build script
 
 ``` ./build.sh```
 
