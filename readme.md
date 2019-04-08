@@ -1,6 +1,6 @@
 # eCommerce-Demo
 
-A concert of an eCommerce system based on Microservices Architecuture with API Gateway
+A concept of an eCommerce system based on Microservices Architecuture with API Gateway
 
 ## Architecture
 ### Microservices Architecture Desgin
@@ -26,6 +26,6 @@ org.openapitools:openapi-generator-gradle-plugin is not (yet) compatible with Gr
  
  ## Run Script
 Please run application by using an IDE.
-The run.sh is not recommended out side of a docker. 
+The run.sh is also availlble.
 
 ![RunDashboard](images/RunDashboard.png)
