@@ -22,7 +22,7 @@ A concert of an eCommerce system based on Microservices Architecuture with API G
 ``` ./build.sh```
 
 Note:
-org.openapitools:openapi-generator-gradle-plugin is not (yet) comparative with Gradle 4. Please use gradlew wrapper from the project if you are using Gradle 5 
+org.openapitools:openapi-generator-gradle-plugin is not (yet) compatible with Gradle 4. Please use gradlew wrapper from the project if you are using Gradle 5 
  
  ## Run Script
 Please run application by using an IDE.
