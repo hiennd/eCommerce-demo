@@ -26,6 +26,6 @@ org.openapitools:openapi-generator-gradle-plugin is not (yet) compatible with Gr
  
  ## Run Script
 Please run application by using an IDE.
-The run.sh is also availlble.
+The run.sh is also availlable.
 
 ![RunDashboard](images/RunDashboard.png)
